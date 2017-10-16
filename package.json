@@ -1,0 +1,27 @@
+{
+  "name": "collect-js-deps",
+  "version": "0.1.0",
+  "description": "Collect the minimal list of dependencies required by a JS file.",
+  "main": "lib/main.js",
+  "scripts": {
+    "test": "mocha -R list test/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gristlabs/collect-js-deps.git"
+  },
+  "keywords": [
+    "javascript",
+    "js",
+    "browserify",
+    "package",
+    "compile",
+    "typescript"
+  ],
+  "author": "Dmitry S, Grist Labs",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/gristlabs/collect-js-deps/issues"
+  },
+  "homepage": "https://github.com/gristlabs/collect-js-deps#readme"
+}
