@@ -20,5 +20,5 @@ npm install --save-dev collect-js-deps
 ## Usage
 
 ```
-$(npm bin)/collect-js-deps [--help] --outdir <path> [--list] [browserify_options] <entry_files...>
+$(npm bin)/collect-js-deps --outdir <path> [--list] [browserify_options] <entry_files...>
 ```

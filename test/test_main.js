@@ -10,6 +10,7 @@ const testutil = require('./testutil');
 const collect = require('../index');
 
 describe("collect-js-deps", function() {
+  this.timeout(30000);      // It can take a longer on TravisCI.
 
   function collectFiles(root) {
     return new Promise((resolve, reject) => {
