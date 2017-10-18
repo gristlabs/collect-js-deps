@@ -1,5 +1,9 @@
 # collect-js-deps
 
+[![Build Status](https://travis-ci.org/gristlabs/collect-js-deps.svg?branch=master)](https://travis-ci.org/gristlabs/collect-js-deps)
+[![npm version](https://badge.fury.io/js/collect-js-deps.svg)](https://badge.fury.io/js/collect-js-deps)
+
+
 > Collect the minimal list of dependencies required by a JS file.
 
 This module allows you to examine all dependencies of your Javascript project,
