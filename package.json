@@ -2,9 +2,12 @@
   "name": "collect-js-deps",
   "version": "0.1.0",
   "description": "Collect the minimal list of dependencies required by a JS file.",
-  "main": "lib/main.js",
   "scripts": {
     "test": "mocha -R list test/"
+  },
+  "main": "index.js",
+  "bin": {
+    "collect-js-deps": "index.js"
   },
   "repository": {
     "type": "git",
@@ -23,5 +26,10 @@
   "bugs": {
     "url": "https://github.com/gristlabs/collect-js-deps/issues"
   },
-  "homepage": "https://github.com/gristlabs/collect-js-deps#readme"
+  "homepage": "https://github.com/gristlabs/collect-js-deps#readme",
+  "dependencies": {
+    "browserify": "^14.4.0",
+    "commander": "^2.11.0",
+    "fs-extra": "^4.0.2"
+  }
 }
