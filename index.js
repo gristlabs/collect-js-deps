@@ -96,21 +96,39 @@ function collect_js_deps(b, opts) {
   return b;
 }
 
-module.exports = collect_js_deps;
+exports.collect_js_deps = collect_js_deps;
+
+
+/**
+ * Command-line interface to collect_js_deps. Takes an array of arguments as may be passed to
+ * collect-js-deps on the command-line.
+ * @returns Promise resolved on success, rejected on error.
+ */
+function main(args) {
+  return new Promise((resolve, reject) => {
+    let b = browserifyArgs(['--node', '--dg=false'].concat(args));
+    let outDir = (b.argv.outdir || b.argv.o);
+    if (b.argv._[0] === 'help' || b.argv.h || b.argv.help ||
+      (process.argv.length <= 2 && process.stdin.isTTY)) {
+      reject(new Error('Usage: collect-js-deps --outdir <path> [--list] ' +
+        '{BROWSERIFY-OPTIONS} [entry files]'));
+      return;
+    }
+    if (!outDir && !b.argv.list) {
+      reject(new Error('collect-js-deps requires --outDir (-o) option for output directory, or --list'));
+      return;
+    }
+    collect_js_deps(b, { list: b.argv.list, outdir: outDir });
+    b.bundle((err, body) => err ? reject(err) : resolve());
+  });
+}
+exports.main = main;
+
 
 if (require.main === module) {
-  let args = ['--node'].concat(process.argv.slice(2));
-  let b = browserifyArgs(args);
-  let outDir = (b.argv.outdir || b.argv.o);
-  if (b.argv._[0] === 'help' || b.argv.h || b.argv.help ||
-    (process.argv.length <= 2 && process.stdin.isTTY)) {
-    console.log('Usage: collect-js-deps --outdir <path> [--list] {BROWSERIFY-OPTIONS} [entry files]');
+  main(process.argv.slice(2))
+  .catch(err => {
+    console.log(err.message);
     process.exit(1);
-  }
-  if (!outDir && !b.argv.list) {
-    console.log('collect-js-deps requires --outDir (-o) option for output directory, or --list');
-    process.exit(1);
-  }
-  collect_js_deps(b, { list: b.argv.list, outdir: outDir });
-  b.bundle();
+  });
 }
