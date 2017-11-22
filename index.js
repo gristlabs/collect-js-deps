@@ -33,6 +33,7 @@ class Collector {
     const relPath = path.relative('', fpath);
     if (!relPath || relPath.startsWith('..')) {
       // Ignore files that are not under the current directory.
+      console.log("Warning: skipping file outside root directory: %s", fpath);
       return Promise.resolve();
     }
 
@@ -106,19 +107,19 @@ exports.collect_js_deps = collect_js_deps;
  */
 function main(args) {
   return new Promise((resolve, reject) => {
-    let b = browserifyArgs(['--node', '--dg=false'].concat(args));
-    let outDir = (b.argv.outdir || b.argv.o);
+    let b = browserifyArgs(['--node', '--no-detect-globals'].concat(args));
+    let outdir = (b.argv.outdir || b.argv.o);
     if (b.argv._[0] === 'help' || b.argv.h || b.argv.help ||
       (process.argv.length <= 2 && process.stdin.isTTY)) {
       reject(new Error('Usage: collect-js-deps --outdir <path> [--list] ' +
         '{BROWSERIFY-OPTIONS} [entry files]'));
       return;
     }
-    if (!outDir && !b.argv.list) {
-      reject(new Error('collect-js-deps requires --outDir (-o) option for output directory, or --list'));
+    if (!outdir && !b.argv.list) {
+      reject(new Error('collect-js-deps requires --outdir (-o) option for output directory, or --list'));
       return;
     }
-    collect_js_deps(b, { list: b.argv.list, outdir: outDir });
+    collect_js_deps(b, { list: b.argv.list, outdir });
     b.bundle((err, body) => err ? reject(err) : resolve());
   });
 }
@@ -128,7 +129,7 @@ exports.main = main;
 if (require.main === module) {
   main(process.argv.slice(2))
   .catch(err => {
-    console.log(err.message);
+    console.log("Error", err.message);
     process.exit(1);
   });
 }
