@@ -28,15 +28,15 @@
   },
   "homepage": "https://github.com/gristlabs/collect-js-deps#readme",
   "dependencies": {
-    "browserify": "^14.4.0",
+    "browserify": "^16.2.3",
     "commander": "^2.11.0",
-    "fs-extra": "^4.0.2"
+    "fs-extra": "^10.1.0"
   },
   "devDependencies": {
     "bluebird": "^3.5.1",
     "chai": "^4.1.2",
     "klaw": "^2.1.0",
-    "mocha": "^4.0.1",
+    "mocha": "^10.0.0",
     "sinon": "^4.0.1",
     "tmp-promise": "^1.0.3",
     "tsify": "^3.0.3",
